@@ -47,10 +47,10 @@ class Student(db.Model):
 
 with app.app_context():
     db.create_all()
-    # Create default Admin
+    # Default Admin (admin / admin123)
     if not User.query.filter_by(username='admin').first():
         db.session.add(User(username='admin', password_hash=generate_password_hash('admin123')))
-    # Create default Fee Settings (SQLAlchemy 2.0 Syntax)
+    # Default Fees
     if not db.session.get(FeeSetting, 1):
         db.session.add(FeeSetting(id=1, tuition_fee=3000.0, bus_fee=1500.0))
     db.session.commit()
@@ -62,7 +62,7 @@ def get_fees():
         return setting.tuition_fee, setting.bus_fee
     return 3000.0, 1500.0
 
-# --- Public Registration Form ---
+# --- Public Routes ---
 @app.route('/')
 def register_page():
     tuition, bus = get_fees()
@@ -82,6 +82,7 @@ def add_student():
     payment_type = request.form.get('payment_type')
     amount_paid = float(request.form.get('amount_paid', 0))
     
+    # ራስ-ሰር የባስ ክፍያ እና ጠቅላላ ሂሳብ ስሌት
     actual_bus_fee = bus if bus_choice == 'እፈልጋለሁ (Yes Bus)' else 0.0
     total_expected = tuition + actual_bus_fee
     balance_due = total_expected - amount_paid
@@ -105,7 +106,7 @@ def add_student():
     flash(f'የተማሪ {full_name} ምዝገባ ተጠናቋል! ጠቅላላ የሚፈለግበት፦ {total_expected} ETB', 'success')
     return redirect(url_for('register_page'))
 
-# --- Auth & Admin Routes ---
+# --- Auth Routes ---
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
