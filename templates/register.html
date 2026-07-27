@@ -12,9 +12,14 @@
     .header-box { background: #1f4e79; color: #ffffff; border-top-left-radius: 12px; border-top-right-radius: 12px; }
   </style>
 </head>
-<body class="py-5">
+<body class="py-4">
 
   <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold text-primary mb-0"><i class="bi bi-mortarboard-fill me-2"></i>Wabi School</h4>
+      <a href="/login" class="btn btn-outline-primary fw-bold btn-sm"><i class="bi bi-person-badge me-1"></i>Admin Login</a>
+    </div>
+
     <div class="row justify-content-center">
       <div class="col-lg-8">
 
@@ -31,14 +36,14 @@
 
         <div class="card card-custom">
           <div class="p-4 text-center header-box">
-            <h3 class="fw-bold mb-1"><i class="bi bi-mortarboard-fill me-2"></i>የተማሪዎች የመመዝገቢያ ፎርም</h3>
-            <p class="mb-0 text-white-50">እባክዎን የተማሪውን መረጃ በትክክል ይሙሉ</p>
+            <h3 class="fw-bold mb-1">የተማሪዎች የመመዝገቢያ ፎርም</h3>
+            <p class="mb-0 text-white-50">ወርሃዊ ትምህርት ክፍያ፦ {{ tuition_fee }} ETB | ወርሃዊ የስኩል ባስ ክፍያ፦ {{ bus_fee }} ETB</p>
           </div>
 
           <div class="card-body p-4 p-md-5 bg-white">
             <form action="/add_student" method="POST">
               
-              <!-- SECTION 1: Personal Info -->
+              <!-- SECTION 1 -->
               <h5 class="fw-bold text-primary mb-3 border-bottom pb-2"><i class="bi bi-person-fill me-2"></i>1. የተማሪው/ዋ መረጃ</h5>
               <div class="row g-3 mb-4">
                 <div class="col-md-6">
@@ -56,12 +61,6 @@
                     <option value="4th Grade">4ኛ ክፍል (4th Grade)</option>
                     <option value="5th Grade">5th Grade</option>
                     <option value="6th Grade">6th Grade</option>
-                    <option value="7th Grade">7th Grade</option>
-                    <option value="8th Grade">8th Grade</option>
-                    <option value="9th Grade">9th Grade</option>
-                    <option value="10th Grade">10th Grade</option>
-                    <option value="11th Grade">11th Grade</option>
-                    <option value="12th Grade">12th Grade</option>
                   </select>
                 </div>
 
@@ -76,17 +75,17 @@
                 </div>
               </div>
 
-              <!-- SECTION 2: Bus Service -->
+              <!-- SECTION 2 -->
               <h5 class="fw-bold text-primary mb-3 border-bottom pb-2"><i class="bi bi-bus-front-fill me-2"></i>2. የስኩል ባስ አገልግሎት</h5>
               <div class="mb-4">
-                <label class="form-label fw-bold">የስኩል ባስ አገልግሎት ይፈልጋሉ?</label>
+                <label class="form-label fw-bold">የስኩል ባስ አገልግሎት ይፈልጋሉ? (+{{ bus_fee }} ETB)</label>
                 <select name="bus_service" class="form-select">
                   <option value="አልፈልግም (No Bus)">አልፈልግም (No Bus)</option>
-                  <option value="እፈልጋለሁ (Yes Bus)">እፈልጋለሁ (Yes Bus)</option>
+                  <option value="እፈልጋለሁ (Yes Bus)">እፈልጋለሁ (Yes Bus - {{ bus_fee }} ETB)</option>
                 </select>
               </div>
 
-              <!-- SECTION 3: Payment Info -->
+              <!-- SECTION 3 -->
               <h5 class="fw-bold text-primary mb-3 border-bottom pb-2"><i class="bi bi-credit-card-fill me-2"></i>3. የክፍያ መረጃ</h5>
               <div class="row g-3 mb-4">
                 <div class="col-md-6">
